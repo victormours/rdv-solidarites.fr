@@ -217,6 +217,11 @@ Rails.application.routes.draw do
   get "admin/organisations/:organisation_id/agents/:agent_id", to: redirect("/admin/organisations/%{organisation_id}/agent_agendas/%{agent_id}")
   # rubocop:enable Style/StringLiterals, Style/FormatStringToken
 
+  get "/templates", to: "static_pages#templates"
+  get "/template_usager", to: "static_pages#template_usager"
+  get "/template_agent", to: "static_pages#template_agent"
+  get "/template_configuration", to: "static_pages#template_configuration"
+
   # LetterOpener
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
