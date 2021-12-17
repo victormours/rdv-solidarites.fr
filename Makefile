@@ -26,6 +26,19 @@ test_features:  ## Run feature tests
 autocorrect: ## Fix autocorrectable lint issues
 	bundle exec rubocop --auto-correct-all
 
+deploy_recette: ## Deployement of recette branch to recette server
+	git checkout recette && \
+		git pull --rebase --prune && \
+		git tag "deploiement-$(date +%Y-%m-%d-%H-%M)" && \
+		make test && \
+		git push --tags && \
+		git push
+		git push git@ssh.osc-fr1.scalingo.com:recette-rdv-solidarites.git recette:recette && \
+		git checkout -
+
+deploy_production: ## Deployement of production branch to production server
+	git checkout production && make test && git push git@ssh.osc-fr1.scalingo.com:production-rdv-solidarites.git production:production && git checkout -
+
 recette_log: ## Deployment: List merged changes, ready to deploy
 	git log --merges production..recette --oneline --no-decorate
 
