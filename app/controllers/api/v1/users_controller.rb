@@ -6,6 +6,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def index
     users = policy_scope(User)
     users = users.where(id: params[:ids]) if params[:ids].present?
+    users = users.where(email: params[:email]) if params[:email].present?
     render_collection(users)
   end
 
